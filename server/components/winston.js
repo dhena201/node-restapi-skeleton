@@ -30,10 +30,10 @@ const log = winston.createLogger({
 });
 
 const file = (filename = '') => {
-    return new (winston.Logger)({
+    return winston.createLogger({
         transports: [
             new (winston.transports.DailyRotateFile)({
-                filename: path.resolve('./log') + `/app-cfo-${filename}-%DATE%.log`,
+                filename: path.resolve('./log') + `/app-fog-${filename}-%DATE%.log`,
                 datePattern: 'DD-MM-YYYY',
                 handleExceptions: true,
                 exitOnError: false,
