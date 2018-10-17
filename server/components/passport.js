@@ -3,16 +3,13 @@ const {
     ExtractJwt,
 } = require('passport-jwt');
 const db = require('../models');
-const config = require('../../config/config');
 
-let key = config.jwtSecret;
-
-const opts = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: key,
-};
-
-module.exports = (passport) => {
+module.exports = (passport, config) => {
+    let key = config.jwtSecret;
+    const opts = {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: key,
+    };
     const jwtStrategy = new Strategy(opts, (jwtPayload, done) => {
         db.User.findOne({
             where: { email: jwtPayload.email } ,

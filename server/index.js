@@ -77,7 +77,7 @@ module.exports = function(){
         
         
         // set up Passport middleware
-        passportConfig(passport);
+        passportConfig(passport, config);
         server.use(passport.initialize());
         
         // set up express actuator
