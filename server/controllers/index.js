@@ -1,0 +1,36 @@
+const 
+    requireDirectory = require('require-directory'),
+    {namespace,slashNotation} = require('../components/utils');
+
+/**
+ * Formats every controller inside the directory 'controllers' into an object.
+ * folder:
+ *  - app
+ *    - auth.controller
+ *
+ *  output:
+ *  {
+ *    App: {
+ *      AuthController: (file exports)
+ *    }
+ *  }
+ */
+
+const controllers = requireDirectory(module, './', {
+  rename: namespace
+})
+
+/**
+ * Transform slash notation to the controller's method, appending/prepending any middleware required
+ *
+ * @export
+ * @param {any} ctrllr
+ * @returns
+ */
+module.exports = function (ctrllr) {
+  const [controllerName, methodName] = ctrllr.split('@');
+  const controller = slashNotation(controllerName, controllers);
+  const method = controller[methodName];
+
+  return [method];
+}

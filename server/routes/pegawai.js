@@ -1,6 +1,7 @@
-const router = require('express').Router();
-const PegawaiCtrl = require('./../controllers/pegawai');
+const 
+    router = require('express').Router(),
+    Ctrl = require('../controllers');
 
-router.get('/', PegawaiCtrl.getAll);
+router.get('/', Ctrl('Kepegawaian/PegawaiController@getAll'));
 
 module.exports = router;
