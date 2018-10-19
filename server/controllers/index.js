@@ -30,7 +30,8 @@ const controllers = requireDirectory(module, './', {
 module.exports = function (ctrllr) {
   const [controllerName, methodName] = ctrllr.split('@');
   const controller = slashNotation(controllerName, controllers);
+  if(!controller) throw new Error(`Controller ${controllerName} not found`);
   const method = controller[methodName];
-
+  if(!method) throw new Error(`Method ${methodName} not found in ${controllerName}`);
   return [method];
 }
